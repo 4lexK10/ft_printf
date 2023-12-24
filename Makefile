@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 SRCS			= ft_printf.c printf_hex.c printf_nbr.c printf_ptr.c \
-				  printf_str.c
+				  printf_str.c printf_u_nbr.c
 				  
 OBJS			= $(SRCS:.c=.o)
 

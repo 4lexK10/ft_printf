@@ -12,36 +12,41 @@
 
 #include "libftprintf.h"
 
-static int	ft_putchar(char c)
+int	ft_putchar(char c, int *count)
 {
-	return (write(1, &c, 1));
+	if (write(1, &c, 1) == -1)
+	{
+		*count = -1;
+		return (-1);
+	}
+	++(*count);
+	return (0);
 }
 
 void	printf_nbr(int args, char *base, int *count)
 {
-	args = (long) args;
-	if (args < 0)
+	if (args == -2147483648)
 	{
-		if (ft_putchar('-') == -1)
-		{
-			*count = -1;
+		if (ft_putchar('-', count) == -1 || ft_putchar('2', count) == -1)
 			return ;
-		}
-		++(*count);
+		printf_nbr(147483648, base, count);
+	}
+	else if (args < 0)
+	{
+		if (ft_putchar('-', count) == -1)
+			return ;
 		printf_nbr(-args, base, count);
 	}
 	else if (args > 9)
 	{
 		printf_nbr(args / 10, base, count);
+		if (*count == -1)
+			return ;
 		printf_nbr(args % 10, base, count);
 	}
 	else
 	{
-		if (ft_putchar(base[args]) == -1)
-		{
-			*count = -1;
+		if (ft_putchar(base[args], count) == -1)
 			return ;
-		}
-		++(*count);
 	}
 }

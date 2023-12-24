@@ -12,24 +12,24 @@
 
 #include "libftprintf.h"
 
-static int	ft_putchar(char c)
-{
-	return (write(1, &c, 1));
-}
-
-void printf_str(char *args, int *count)
+void	printf_str(char *args, int *count)
 {
 	int	i;
 
 	i = 0;
 	if (!args)
 	{
-		*count = -1;
+		if (write(1, "(null)", 6) == -1)
+		{
+			*count = -1;
+			return ;
+		}
+		*count += 6;
 		return ;
 	}
 	while (args[i] != '\0')
 	{
-		if (ft_putchar(args[i++]) == -1)
+		if (write(1, &args[i++], 1) == -1)
 		{
 			*count = -1;
 			return ;
@@ -37,11 +37,3 @@ void printf_str(char *args, int *count)
 	}
 	*count += i;
 }
-
-/* #include <stdio.h>
-int main (void)
-{
-	int count = 0;
-	printf_str("Hello World\n", &count);
-	printf("%d\n", count);
-} */

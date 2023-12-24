@@ -18,8 +18,9 @@
 # include <stdlib.h>
 
 int		ft_printf(const char *s, ...);
-void 	printf_hex(unsigned int args, char *base, int *count);
+void	printf_hex(unsigned int args, char *base, int *count);
 void	printf_nbr(int args, char *base, int *count);
+void	printf_u_nbr(unsigned int args, char *base, int *count);
 void	printf_ptr(unsigned long long args, char *base, int *count);
 void	printf_str(char *args, int *count);
 
